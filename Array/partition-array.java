@@ -42,9 +42,6 @@ public class Solution {
 	        if(nums[left] < k){
 	            left++;
 	        }else{
-	            while(nums[right] >= k && right > left){
-	                right--;
-	            }
 	            swap(nums, left, right);
 	            right--;
 	        }
