@@ -1,8 +1,8 @@
-ass Element{
+class Element{
     int row;
     int col;
     int val;
-    Element(int a, int b, int c){
+    public Element(int a, int b, int c){
         row = a;
         col = b;
         val = c;
@@ -15,30 +15,32 @@ public class Solution {
      */
     public List<Integer> mergekSortedArrays(int[][] arrays) {
         // Write your code here
-        List<Integer> res = new ArrayList<Integer>();
-        if(arrays == null || arrays.length == 0 || arrays[0].length == 0){
-            return res; 
+        List<Integer> list = new ArrayList<Integer>();
+        if(arrays == null){
+            return list;
         }
         Comparator<Element> comparator = new Comparator<Element>(){
             public int compare(Element a, Element b){
                 return a.val - b.val;
             }
         };
-       
-        Queue<Element> queue = new PriorityQueue<Element>(arrays.length, comparator);
+       PriorityQueue<Element> queue = new PriorityQueue<Element>(arrays.length, comparator);
+     
         for(int i = 0; i < arrays.length; i++){
-            queue.add(new Element(i, 0, arrays[i][0]));
+            if(arrays[i].length > 0){//important
+                queue.add(new Element(i, 0, arrays[i][0]));
+            }
         }
         
         while(!queue.isEmpty()){
-             Element elem = queue.poll();
-             res.add(elem.val);
-             if(elem.col < arrays[elem.row].length - 1){
-                 Element temp = new Element(elem.row, elem.col + 1, arrays[elem.row][elem.col + 1]);
-                 queue.add(temp);
-             }
+            Element elem = queue.poll();
+            list.add(elem.val);
+            int row = elem.row;
+            int col = elem.col;
+            if(col+1 < arrays[row].length){
+                queue.add(new Element(row, col+1, arrays[row][col+1]));
+            }
         }
-        return res;
-       
+        return list;
     }
-}
+}}
