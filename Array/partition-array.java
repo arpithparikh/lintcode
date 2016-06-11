@@ -54,3 +54,33 @@ public class Solution {
         nums[right] = temp;
     }
 }
+
+//the third time solution!
+public class Solution {
+	/** 
+     *@param nums: The integer array you should partition
+     *@param k: As description
+     *return: The index after partition
+     */
+    public int partitionArray(int[] nums, int k) {
+	    //write your code here
+	    int left = 0;
+	    int right = nums.length -1;
+	    int i = 0;
+	    while(left <= right){
+	        if(nums[left] < k){
+	            left++;
+	        }else{
+	            swap(nums, left, right);
+	            right--;
+	        }
+	    }
+	    return left;
+    }
+    
+    public void swap(int[] nums, int left, int right){
+        int temp = nums[left];
+        nums[left] = nums[right];
+        nums[right] = temp;
+    }
+}
